@@ -3,12 +3,48 @@
 <html>
 
 <head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
+	<div class="background">
+    <video id="video" autoplay loop muted 
+      src="https://www.w3schools.com/html/mov_bbb.mp4"></video>
+  </div>
+
+  <div id="app">
+    <div class="time-select">
+      <button data-time="120">2 Minutes</button>
+      <button data-time="300">5 Minutes</button>
+      <button data-time="600">10 Minutes</button>
+    </div>
+
+    <div class="timer-container">
+      <svg>
+        <circle class="circle-bg" cx="130" cy="130" r="130"></circle>
+        <circle class="circle-progress" cx="130" cy="130" r="130"></circle>
+      </svg>
+      <div class="play-btn" id="play"></div>
+    </div>
+
+    <div class="time-display" id="time-display">10:00</div>
+
+    <div class="sound-picker">
+      <button class="rain" 
+              data-sound="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+              data-video="https://www.w3schools.com/html/mov_bbb.mp4">🌧️</button>
+
+      <button class="sun"
+              data-sound="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+              data-video="https://www.w3schools.com/html/movie.mp4">☀️</button>
+    </div>
+    <audio id="audio"></audio>
+  </div>
+
+	<script type="text/javascript" src="./script.js">
 </script>
 
 </body>
