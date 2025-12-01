@@ -1,126 +1,79 @@
-/*  your css code here. If applicable */
-* { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
+body {
+    margin: 0;
+    background: #111;
+    color: white;
+    font-family: Arial;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-    .background video {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      top: 0;
-      left: 0;
-      z-index: -1;
-    }
+.container {
+    width: 90%;
+    max-width: 900px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    #app {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
+/* LEFT & RIGHT PANELS */
+.left-panel, .right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
 
-    .timer-container {
-      position: absolute;
-      top: 35%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 260px;
-      height: 260px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+.time-btn, .weather-btn, #start-btn {
+    padding: 12px 20px;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid white;
+    color: white;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+}
 
-    svg {
-      position: absolute;
-      width: 260px;
-      height: 260px;
-      transform: rotate(-90deg);
-    }
+/* CENTER TIMER */
+.timer-section {
+    text-align: center;
+}
 
-    circle {
-      fill: none;
-      stroke-width: 12;
-      stroke-linecap: round;
-    }
+#timer-display {
+    font-size: 38px;
+    margin-top: -150px;
+}
 
-    .circle-bg {
-      stroke: rgba(255,255,255,0.4);
-    }
+.progress-ring circle {
+    fill: transparent;
+    stroke-width: 10;
+}
 
-    .circle-progress {
-      stroke: white;
-      stroke-dasharray: 820;
-      stroke-dashoffset: 820;
-      transition: stroke-dashoffset 0.5s linear;
-    }
+.ring-bg {
+    stroke: #444;
+}
 
-    .play-btn {
-      width: 0;
-      height: 0;
-      border-left: 40px solid white;
-      border-top: 25px solid transparent;
-      border-bottom: 25px solid transparent;
-      cursor: pointer;
-    }
+.ring-progress {
+    stroke: #00eaff;
+    stroke-linecap: round;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+    stroke-dasharray: 565;
+    stroke-dashoffset: 565;
+    transition: stroke-dashoffset 1s linear;
+}
 
-    .time-display {
-      position: absolute;
-      top: 75%;
-      left: 50%;
-      transform: translateX(-50%);
-      color: white;
-      font-size: 40px;
-      font-weight: bold;
-    }
+#start-btn {
+    margin-top: 20px;
+}
 
-    .time-select {
-      position: absolute;
-      left: 50px;
-      top: 25%;
-      display: flex;
-      flex-direction: column;
-      gap: 60px;
-    }
-
-    .time-select button {
-      padding: 15px 30px;
-      background: transparent;
-      border: 2px solid white;
-      color: white;
-      font-size: 18px;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    .sound-picker {
-      position: absolute;
-      right: 50px;
-      top: 25%;
-      display: flex;
-      flex-direction: column;
-      gap: 100px;
-    }
-
-    .sound-picker button {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      font-size: 48px;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-    }
-
-    .rain { background: #3f5e94; }
-    .sun  { background: #b4493d; }
+/* VIDEO BACKGROUND */
+#relax-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}

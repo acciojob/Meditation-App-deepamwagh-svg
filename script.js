@@ -1,68 +1,56 @@
-//your JS code here. If required.
-	const audio = document.getElementById("audio");
-    const video = document.getElementById("video");
-    const playBtn = document.getElementById("play");
-    const timeDisplay = document.getElementById("time-display");
-    const timeButtons = document.querySelectorAll(".time-select button");
-    const soundButtons = document.querySelectorAll(".sound-picker button");
-    const circle = document.querySelector(".circle-progress");
+let selectedTime = 0;
+let countdown;
+const display = document.getElementById("timer-display");
+const ring = document.querySelector(".ring-progress");
+const totalLength = 565;
 
-    let duration = 600;
-    let isPlaying = false;
-
-    const circumference = 820;
-    circle.style.strokeDasharray = circumference;
-    circle.style.strokeDashoffset = circumference;
-
-    function formatTime(sec) {
-      let m = Math.floor(sec / 60);
-      let s = sec % 60;
-      return `${m}:${s < 10 ? "0" + s : s}`;
-    }
-
-    playBtn.addEventListener("click", () => {
-      if (!isPlaying) {
-        audio.play();
-        video.play();
-        isPlaying = true;
-      } else {
-        audio.pause();
-        video.pause();
-        isPlaying = false;
-      }
+// TIME BUTTONS
+document.querySelectorAll(".time-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+        selectedTime = btn.dataset.time;
+        display.innerHTML = formatTime(selectedTime);
     });
+});
 
-    timeButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        duration = parseInt(btn.dataset.time);
-        audio.currentTime = 0;
-        timeDisplay.textContent = formatTime(duration);
-        circle.style.strokeDashoffset = circumference;
-      });
-    });
+// FORMAT MM:SS
+function formatTime(sec) {
+    let m = Math.floor(sec / 60);
+    let s = sec % 60;
+    return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+}
 
-    soundButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        audio.src = btn.dataset.sound;
-        video.src = btn.dataset.video;
-        if (isPlaying) {
-          audio.play();
-          video.play();
+// START BUTTON
+document.getElementById("start-btn").addEventListener("click", () => {
+    if (!selectedTime) return;
+
+    let remaining = selectedTime;
+    clearInterval(countdown);
+
+    countdown = setInterval(() => {
+        remaining--;
+        display.innerHTML = formatTime(remaining);
+
+        let progress = totalLength - (remaining / selectedTime) * totalLength;
+        ring.style.strokeDashoffset = progress;
+
+        if (remaining <= 0) {
+            clearInterval(countdown);
         }
-      });
-    });
+    }, 1000);
+});
 
-    audio.addEventListener("timeupdate", () => {
-      let current = audio.currentTime;
-      let remaining = duration - current;
+// WEATHER BUTTONS — using ONLINE video & audio
+const video = document.getElementById("relax-video");
+const audio = document.getElementById("relax-audio");
 
-      if (remaining <= 0) {
-        audio.pause();
-        video.pause();
-        isPlaying = false;
-        audio.currentTime = 0;
-      }
+document.getElementById("beach-btn").addEventListener("click", () => {
+    video.src = "https://cdn.coverr.co/videos/coverr-tropical-beach-9070/1080p.mp4";
+    audio.src = "https://www.fesliyanstudios.com/play-mp3/387";
+    audio.play();
+});
 
-      timeDisplay.textContent = formatTime(Math.floor(remaining));
-      circle.style.strokeDashoffset = circumference - (current / duration) * circumference;
-    });
+document.getElementById("rain-btn").addEventListener("click", () => {
+    video.src = "https://cdn.coverr.co/videos/coverr-rain-on-window-2385/1080p.mp4";
+    audio.src = "https://www.fesliyanstudios.com/play-mp3/4382";
+    audio.play();
+});
